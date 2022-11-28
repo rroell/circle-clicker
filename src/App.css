@@ -5,4 +5,13 @@
 .point {
   display: inline-block;
   position: absolute;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background: red;
+}
+
+/* Keep cursor as default when hovering over a point */
+.point:hover {
+  cursor: default;
 }
