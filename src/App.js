@@ -1,13 +1,16 @@
 import React from "react";
 import { useState } from "react";
 import "./App.css";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 function App() {
   const [points, setPoints] = useState([]);
   const [undonePoints, setUndonePoints] = useState([]);
+  const shape = "square";
 
   function handlePlaceCircle(e) {
-    let point = { x: e.pageX - 2, y: e.pageY - 2 };
+    let point = { x: e.pageX - 2, y: e.pageY - 2, className: shape };
     console.log(point);
     setPoints([...points, point]);
   }
@@ -23,26 +26,42 @@ function App() {
     setPoints([...points, redo]);
     setUndonePoints([...undonePoints]);
   }
+  function handleShapeChange() {
+    shape = "circle";
+  }
 
   return (
     <div>
-      <button
-        onClick={handleUndo}
-        disabled={points.length === 0 ? true : false}
-      >
-        Undo
-      </button>
-      <button
-        onClick={handleRedo}
-        disabled={undonePoints.length === 0 ? true : false}
-      >
-        Redo
-      </button>
+      <div className="center">
+        <ButtonGroup
+          size="large"
+          variant="contained"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            className="button-spacing"
+            onClick={handleUndo}
+            disabled={points.length === 0 ? true : false}
+          >
+            Undo
+          </Button>
+          <Button
+            className="button-spacing"
+            onClick={handleRedo}
+            disabled={undonePoints.length === 0 ? true : false}
+          >
+            Redo
+          </Button>
+          <Button className="button-spacing" onClick={handleShapeChange}>
+            Change shape
+          </Button>
+        </ButtonGroup>
+      </div>
+      {/* TODO: Make it possible to change the shape of the point */}
       <div className="App" onClick={handlePlaceCircle}>
-        <div>Hallo</div>
         {points.map((point, idx) => (
           <div
-            className="point"
+            className={shape}
             style={{ left: point.x, top: point.y }}
             key={idx}
           ></div>
