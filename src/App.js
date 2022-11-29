@@ -7,7 +7,8 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 function App() {
   const [points, setPoints] = useState([]);
   const [undonePoints, setUndonePoints] = useState([]);
-  const shape = "square";
+  const startShape = "square";
+  const [shape, setShape] = useState(startShape);
 
   function handlePlaceCircle(e) {
     let point = { x: e.pageX - 2, y: e.pageY - 2, className: shape };
@@ -27,7 +28,7 @@ function App() {
     setUndonePoints([...undonePoints]);
   }
   function handleShapeChange() {
-    shape = "circle";
+    shape === "circle" ? setShape("square") : setShape("circle");
   }
 
   return (
@@ -61,7 +62,9 @@ function App() {
       <div className="App" onClick={handlePlaceCircle}>
         {points.map((point, idx) => (
           <div
+            // TODO: now shape changes for all objects
             className={shape}
+            // className={this.className}
             style={{ left: point.x, top: point.y }}
             key={idx}
           ></div>
